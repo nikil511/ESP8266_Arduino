@@ -12,8 +12,8 @@
 <script language="javascript" type="text/javascript" src=ady.js></script>
 <meta charset="UTF-8">
 <script>
-	// var connection = new WebSocket('ws://'+location.hostname+':81/', ['arduino']);
-	var connection = new WebSocket('ws://websocketstest.local:81/', ['arduino']);
+	var connection = new WebSocket('ws://'+location.hostname+':81/', ['arduino']);
+	//var connection = new WebSocket('ws://websocketstest.local:81/', ['arduino']);
 	connection.onopen = function () {  connection.send('Connect ' + new Date()); }; 
 	connection.onerror = function (error) {    console.log('WebSocket Error ', error);};
 	connection.onmessage = function (e) {  
