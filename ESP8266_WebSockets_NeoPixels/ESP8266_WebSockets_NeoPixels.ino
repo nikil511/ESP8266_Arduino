@@ -3,6 +3,7 @@
  * based on: http://adityatannu.com/blog/post/2016/01/24/ESP8266-Websockets-demo-using-NeoPixels.html
  * 
 ********************/
+#include <FS.h>
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
@@ -12,7 +13,7 @@
 #include <ESP8266mDNS.h>
 #include <Hash.h>
 #include <NeoPixelBus.h>
-#include <FS.h>
+#include <WiFiManager.h>  
 
 #define pixelCount 32
 #define colorSaturation 255
@@ -25,9 +26,9 @@ RgbColor black = RgbColor(0);
 
 #define USE_SERIAL Serial
 
-const char* ssid     = "-";
-const char* password = "-";
-const char* mDNSid   = "-";
+//const char* ssid     = "-"; // using WiFiManager instead
+//const char* password = "-";
+const char* mDNSid   = "ledxm.local";
 
 ESP8266WiFiMulti WiFiMulti;
 
@@ -239,10 +240,11 @@ void setup() {
     }
     USE_SERIAL.printf("\n");
   }
-
-  WiFiMulti.addAP(ssid, password);
+ WiFiManager wifiManager;
+  wifiManager.autoConnect("AutoConnectAP");
+  //WiFiMulti.addAP(ssid, password);
   while (WiFiMulti.run() != WL_CONNECTED) {
-    delay(100);
+    delay(300);
   }
 
   USE_SERIAL.println("");
@@ -301,7 +303,6 @@ void setup() {
   strip.Begin();
   strip.Show();
   strip.SetPixelColor(0, blue);
-
   strip.Show();
 }
 
