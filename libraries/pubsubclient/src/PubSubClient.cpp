@@ -122,7 +122,7 @@ boolean PubSubClient::connect(const char *id, const char *user, const char *pass
         } else {
             result = _client->connect(this->ip, this->port);
         }
-        if (result) {
+        if (result == 1) {
             nextMsgId = 1;
             // Leave room in the buffer for header and variable length field
             uint16_t length = 5;
@@ -570,7 +570,7 @@ PubSubClient& PubSubClient::setServer(const char * domain, uint16_t port) {
     return *this;
 }
 
-PubSubClient& PubSubClient::setCallback(void(*callback)(char*,uint8_t*,unsigned int)){
+PubSubClient& PubSubClient::setCallback(MQTT_CALLBACK_SIGNATURE) {
     this->callback = callback;
     return *this;
 }
